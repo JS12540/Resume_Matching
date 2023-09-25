@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
+import './index.css'
 
 function App() {
   const [jobDescription, setJobDescription] = useState('');
