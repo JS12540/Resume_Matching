@@ -3,34 +3,33 @@ Resume Matching with Job description
 
 **Important Concepts and Learnings:**
 
-word_tokenize(text): This function is used for tokenizing a text into words or word tokens. Tokenization is the process of breaking a text into individual words or tokens. For example:
+**word_tokenize(text)**: This function is used for tokenizing a text into words or word tokens. Tokenization is the process of breaking a text into individual words or tokens. For example:
 
-python
+**python
 from nltk.tokenize import word_tokenize
 
 text = "Hello, how are you doing today?"
 tokens = word_tokenize(text)
+
 print(tokens)
-
-
 Output:
 ['Hello', ',', 'how', 'are', 'you', 'doing', 'today', '?']
+**
 
+**sent_tokenize(text)**: This function is used for sentence tokenization, which is the process of splitting a text into individual sentences. For example:
 
-sent_tokenize(text): This function is used for sentence tokenization, which is the process of splitting a text into individual sentences. For example:
-
-python
+**python
 from nltk.tokenize import sent_tokenize
 
 text = "Hello, Mr. Smith. How are you today? I hope you're doing well."
 sentences = sent_tokenize(text)
 print(sentences)
 Output:
-['Hello, Mr. Smith.', 'How are you today?', "I hope you're doing well."]
+['Hello, Mr. Smith.', 'How are you today?', "I hope you're doing well."]**
 
-pos_tag(tokens): This function is used for part-of-speech tagging, which involves labeling each word in a list of tokens with its corresponding part of speech (e.g., noun, verb, adjective, etc.). For example:
+**pos_tag(tokens)**: This function is used for part-of-speech tagging, which involves labeling each word in a list of tokens with its corresponding part of speech (e.g., noun, verb, adjective, etc.). For example:
 
-python
+**python
 from nltk import pos_tag
 from nltk.tokenize import word_tokenize
 
@@ -40,7 +39,7 @@ tagged_tokens = pos_tag(tokens)
 print(tagged_tokens)
 Output:
 
-[('The', 'DT'), ('quick', 'JJ'), ('brown', 'NN'), ('fox', 'NN'), ('jumps', 'VBZ'), ('over', 'IN'), ('the', 'DT'), ('lazy', 'JJ'), ('dog', 'NN'), ('.', '.')]
+[('The', 'DT'), ('quick', 'JJ'), ('brown', 'NN'), ('fox', 'NN'), ('jumps', 'VBZ'), ('over', 'IN'), ('the', 'DT'), ('lazy', 'JJ'), ('dog', 'NN'), ('.', '.')]**
 
 
 The second element in each tuple represents a part-of-speech (POS) tag, and these abbreviations indicate the specific part of speech of each word. Here are some common POS tags and their meanings:
