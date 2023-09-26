@@ -1,0 +1,4 @@
+1. npm ERR!: no such file or directory 'C:\Users\admin\AppData\Roaming\npm'
+    Solution: Check if the file exists at the given location, if it does not use 
+    'mkdir C:\Users\admin\AppData\Roaming\npm' to make the directoryy and then return
+    npx create-react-app <app_name>
