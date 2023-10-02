@@ -14,6 +14,7 @@ app = FastAPI()
 
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
+content = ''' '''
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
@@ -23,12 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class SimilarityRequest(BaseModel):
-    job_description: str = Form(...)
-    resume_file: UploadFile = File(...)
 
-@app.post("/resume_matcher")
-async def resume_matcher(similarity_request: SimilarityRequest):
+
+
+def resume_matcher(job_description, resume_text):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model_name = "bert-base-uncased"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -36,19 +35,13 @@ async def resume_matcher(similarity_request: SimilarityRequest):
     model.to(device)
 
     try:
-        job_description = similarity_request.job_description
-        resume_file = similarity_request.resume_file
+        job_description = job_description
+        resume_text = resume_text
 
-        # Check if both job description and resume file are provided
-        if not job_description or not resume_file:
-            return {"error": "Please provide both a job description and a resume file."}
 
         # Preprocess job description
         job_description = preprocess_text(job_description)
-
-        # Read the uploaded resume PDF
-        resume_text = extract_text_from_pdf(resume_file.file)
-
+        
         # Preprocess resume text
         resume_text_features = preprocess_text(resume_text)
 
@@ -71,3 +64,26 @@ async def resume_matcher(similarity_request: SimilarityRequest):
         error_message = {"error": str(e)}
         return JSONResponse(content=error_message, status_code=400)
     
+
+    
+@app.post("/upload_file")
+def upload_file(job_description: str,
+    resume_file: UploadFile):
+
+        # Extract job_description from the form data
+        # (job_description is expected as a regular form field)
+    if not job_description:
+        return {"error": "Please provide a job description."}
+
+        # Check if a file was uploaded
+    if not resume_file:
+        return {"error": "Please upload a resume PDF file."}
+    # Extract data from the request
+    job_description = job_description
+    resume_text = extract_text_from_pdf(resume_file)
+
+    # Perform similarity calculation (you can replace this with your calculation logic)
+    similarity_score = resume_matcher(job_description, resume_text)
+
+    # Return the similarity score in the response
+    return {"similarity_score": similarity_score}
