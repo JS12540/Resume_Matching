@@ -4,7 +4,7 @@ from nltk import pos_tag, sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 import re
 
-
+print(nltk.data.path)
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
